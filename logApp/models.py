@@ -2,7 +2,7 @@ from django.db import models
 import logging
 from django.utils.translation import gettext_lazy as _
 from six import python_2_unicode_compatible
-
+from django.contrib.auth.models import User
 LEVELS = (
     (logging.INFO, _('Info')),
     (logging.WARNING, _('Warning')),
@@ -17,6 +17,7 @@ class LogMessage(models.Model):
     level = models.PositiveSmallIntegerField(choices=LEVELS,
                                              default=logging.ERROR,
                                              db_index=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     msg = models.TextField()
     trace = models.TextField(blank=True, null=True)
     create_datetime = models.DateTimeField(auto_now_add=True)

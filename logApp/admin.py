@@ -9,7 +9,7 @@ from .models import LogMessage
 
 
 class LogMessageAdmin(admin.ModelAdmin):
-    list_display = ('colored_msg', 'traceback', 'create_datetime_format')
+    list_display = ('user', 'colored_msg', 'traceback', 'create_datetime_format')
     list_display_links = ('colored_msg', )
     list_filter = ('level', )
     list_per_page = DJANGO_DB_LOGGER_ADMIN_LIST_PER_PAGE

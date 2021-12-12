@@ -8,6 +8,7 @@ db_default_formatter = logging.Formatter()
 class DatabaseLogHandler(logging.Handler):
     def emit(self, record):
         from .models import LogMessage
+        from django.contrib.auth.models import User
 
         trace = None
 
@@ -23,7 +24,8 @@ class DatabaseLogHandler(logging.Handler):
             'logger_name': record.name,
             'level': record.levelno,
             'msg': msg,
-            'trace': trace
+            'user': User.objects.get(username='admin'),
+            'trace': trace,
         }
 
         LogMessage.objects.create(**kwargs)
@@ -37,10 +39,6 @@ class DatabaseLogHandler(logging.Handler):
 
         if type(fmt) == logging.Formatter:
             record.message = record.getMessage()
-
-            if fmt.usesTime():
-                record.asctime = fmt.formatTime(record, fmt.datefmt)
-
             return fmt.formatMessage(record)
         else:
             return fmt.format(record)

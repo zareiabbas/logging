@@ -55,10 +55,7 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format': '[%(levelname)s] %(message)s (%(pathname)s)'
-        },
-        'simple': {
-            'format': '[%(levelname)s] %(message)s (%(pathname)s)'
-        },
+        }
     },
     'handlers': {
         'db_handler': {
@@ -68,7 +65,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'db': {
+        'db_logger': {
             'handlers': ['db_handler'],
             'level': 'DEBUG'
         }
